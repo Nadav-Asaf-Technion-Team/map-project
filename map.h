@@ -1,8 +1,10 @@
 #ifndef MAP_H_
 #define MAP_H_
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
 #include <stdbool.h>
-
 /**
 * Generic Map Container
 *
@@ -36,22 +38,22 @@
 */
 
 /** Type for defining the map */
-typedef struct Map_t *Map;
+typedef struct Map_t* Map;
 
 /** Type used for returning error codes from map functions */
 typedef enum MapResult_t {
-    MAP_SUCCESS,
-    MAP_OUT_OF_MEMORY,
-    MAP_NULL_ARGUMENT,
-    MAP_ITEM_ALREADY_EXISTS,
-    MAP_ITEM_DOES_NOT_EXIST
+	MAP_SUCCESS,
+	MAP_OUT_OF_MEMORY,
+	MAP_NULL_ARGUMENT,
+	MAP_ITEM_ALREADY_EXISTS,
+	MAP_ITEM_DOES_NOT_EXIST
 } MapResult;
 
 /** Data element data type for map container */
-typedef void *MapDataElement;
+typedef void* MapDataElement;
 
 /** Key element data type for map container */
-typedef void *MapKeyElement;
+typedef void* MapKeyElement;
 
 /** Type of function for copying a data element of the map */
 typedef MapDataElement(*copyMapDataElements)(MapDataElement);
@@ -93,10 +95,10 @@ typedef int(*compareMapKeyElements)(MapKeyElement, MapKeyElement);
 * 	A new Map in case of success.
 */
 Map mapCreate(copyMapDataElements copyDataElement,
-              copyMapKeyElements copyKeyElement,
-              freeMapDataElements freeDataElement,
-              freeMapKeyElements freeKeyElement,
-              compareMapKeyElements compareKeyElements);
+	copyMapKeyElements copyKeyElement,
+	freeMapDataElements freeDataElement,
+	freeMapKeyElements freeKeyElement,
+	compareMapKeyElements compareKeyElements);
 
 /**
 * mapDestroy: Deallocates an existing map. Clears all elements by using the
@@ -175,7 +177,7 @@ MapDataElement mapGet(Map map, MapKeyElement keyElement);
 /**
 * 	mapRemove: Removes a pair of key and data elements from the map. The elements
 *  are found using the comparison function given at initialization. Once found,
-*  the elements are 
+*  the elements are
 d and deallocated using the free functions
 *  supplied at initialization.
 *  Iterator's value is undefined after this operation.
@@ -235,6 +237,12 @@ MapResult mapClear(Map map);
 * Macro for iterating over a map.
 * Declares a new iterator for the loop.
 */
+
+//================for eurovision use only====================
+void mapSortByKey(Map map);
+void mapSortByDataForInt(Map map);
+//===========================================================
+
 #define MAP_FOREACH(type, iterator, map) \
     for(type iterator = (type) mapGetFirst(map) ; \
         iterator ;\
