@@ -1,6 +1,7 @@
 #include "map.h"
-
-
+#include <assert.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 typedef struct node {
 	MapDataElement data_element;
@@ -25,6 +26,8 @@ static void destroyNode(Node node, freeMapDataElements freeDataElement,
 	freeKeyElement(node->key_element);
 	freeDataElement(node->data_element);
 	free(node);
+	printf("check\n");
+	printf("2");
 }
 //copies a sigle node
 static Node copyNode(Node source_node, copyMapDataElements copyDataElement,
@@ -78,6 +81,7 @@ MapResult mapClear(Map map) {
 	}
 	return MAP_SUCCESS;
 }
+
 void mapDestroy(Map map) {
 	if (!map) return;
 	mapClear(map);
@@ -86,6 +90,7 @@ void mapDestroy(Map map) {
 
 
 Map mapCopy(Map map) {
+	if (map == NULL) return NULL;
 	Map map_cpy = mapCreate(map->copyDataElement,
 		map->copyKeyElement,
 		map->freeDataElement,
@@ -139,6 +144,7 @@ MapKeyElement mapGetNext(Map map) {
 }
 
 bool mapContains(Map map, MapKeyElement element) {
+	if (map == NULL || element == NULL) return NULL;
 	Node ptr = map->head;
 	while (ptr != NULL) {
 		if (map->compareKeyElements(element, ptr->key_element) == 0) {
