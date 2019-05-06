@@ -1,10 +1,8 @@
 #ifndef MAP_H_
 #define MAP_H_
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <assert.h>
 #include <stdbool.h>
+
 /**
 * Generic Map Container
 *
@@ -177,8 +175,7 @@ MapDataElement mapGet(Map map, MapKeyElement keyElement);
 /**
 * 	mapRemove: Removes a pair of key and data elements from the map. The elements
 *  are found using the comparison function given at initialization. Once found,
-*  the elements are
-d and deallocated using the free functions
+*  the elements are removed and deallocated using the free functions
 *  supplied at initialization.
 *  Iterator's value is undefined after this operation.
 *
@@ -237,12 +234,6 @@ MapResult mapClear(Map map);
 * Macro for iterating over a map.
 * Declares a new iterator for the loop.
 */
-
-//================for eurovision use only====================
-void mapSortByKey(Map map);
-void mapSortByDataForInt(Map map);
-//===========================================================
-
 #define MAP_FOREACH(type, iterator, map) \
     for(type iterator = (type) mapGetFirst(map) ; \
         iterator ;\
